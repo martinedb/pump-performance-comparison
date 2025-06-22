@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Data provided by the user
+data = {
+    "Flow (U.S. gallons per minute)": [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1424],
+    "Head (feet)": [0, 209.91, 209.9567031, 209.9338537, 209.6622491, 209.1321933, 207.0220637, 202.2152848, 194.8147593, 183.7576375, 169.7584209, 154.0021374, 136.1393233, 116.7233238, 96.81216554, None],
+    "Bowl power (bhp) at 1.0 specific gravity": [23.36692317, 26.38115149, 28.67758735, 31.14755367, 34.00631172, 38.19671698, 41.42346532, 44.60958066, 47.79471496, 49.92024436, 50.98238991, 52.04451105, 53.10667629, 54.11510601, 55.23090931, 55.23090931],
+    "NPSHR (feet)": [None, 0, None, 5.576317535, 6.372110861, 6.372342927, 7.965138577, 8.761647992, 9.558166292, 11.15118651, 12.74913406, 15.13093363, 18.3181586, 22.30225468, 28.66199697, None],
+    "Efficiency (%)": [0.265, 20.941, 37.85133563, 52.03451165, 62.95488272, 71.03968985, 76.85437857, 81.14961469, 83.75275052, 84.7560677, 83.762557, 80.85911432, 76.3929529, 69.57347311, 61.33620766, None]
+}
+
+# Create a DataFrame
+df = pd.DataFrame(data)
+
+# Plotting the data with four y-axes
+fig, ax1 = plt.subplots()
+
+ax2 = ax1.twinx()
+ax3 = ax1.twinx()
+ax4 = ax1.twinx()
+
+# Offset the right spine of ax3 and ax4
+ax3.spines['right'].set_position(('outward', 60))
+ax4.spines['right'].set_position(('outward', 120))
+
+# Plot data on each axis
+df.plot(x="Flow (U.S. gallons per minute)", y="Head (feet)", ax=ax1, color='b', legend=False)
+df.plot(x="Flow (U.S. gallons per minute)", y="Bowl power (bhp) at 1.0 specific gravity", ax=ax2, color='g', legend=False)
+df.plot(x="Flow (U.S. gallons per minute)", y="NPSHR (feet)", ax=ax3, color='r', legend=False)
+df.plot(x="Flow (U.S. gallons per minute)", y="Efficiency (%)", ax=ax4, color='y', legend=False)
+
+# Set labels for each axis
+ax1.set_ylabel('Head (feet)', color='b')
+ax2.set_ylabel('Bowl power (bhp) at 1.0 specific gravity', color='g')
+ax3.set_ylabel('NPSHR (feet)', color='r')
+ax4.set_ylabel('Efficiency (%)', color='y')
+
+# Set the title and x-axis label
+ax1.set_title("Theoretical Pump Performance Curve of RWP-420")
+ax1.set_xlabel('Flow (U.S. gallons per minute)')
+
+# Show the plot
+plt.show()
